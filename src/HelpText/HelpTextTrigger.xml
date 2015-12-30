@@ -29,5 +29,17 @@
             <category>Appearance</category>
             <description>The caption which will be showed when the help texts can be turned off</description>
         </property>
+        <property key="iconstyle" type="enumeration" required="true" defaultValue="classic">
+            <caption>Icon Style</caption>
+            <category>Style</category>
+            <description>
+                Classic - Use the classic help text icon
+                Bootstrap - Use the Bootstrap glyphicon Question Sign
+            </description>
+            <enumerationValues>
+                <enumerationValue key="classic">Popup</enumerationValue>
+                <enumerationValue key="bootstrap">Bootstrap</enumerationValue>
+            </enumerationValues>
+        </property>
     </properties>
 </widget>

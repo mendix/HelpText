@@ -1,47 +1,63 @@
 /*global logger*/
-dojo.provide("HelpText.widget.HelpTextTrigger");
+define([
+    "dojo/_base/declare",
+    "mxui/widget/_WidgetBase",
 
-mendix.widget.declare("HelpText.widget.HelpTextTrigger", {
-    addons       : [],
+    "mxui/dom",
+    "dojo/dom-style",
+    "dojo/dom-class",
+    "dojo/dom-construct",
+    "dojo/_base/array",
+    "dojo/_base/lang"
 
-    inputargs: {
-        txton : "",
-        txtoff: ""
-    },
+], function (declare, _WidgetBase, dom, domStyle, domClass, domConstruct, dojoArray, lang) {
+    "use strict";
 
-    //IMPLEMENTATION
-    domNode: null,
-    imgNode: null,
-    txtNode: null,
-    topic : "CustomWidget/HelpText",
-    state : false, //current state
+    return declare("HelpText.widget.HelpTextTrigger", [_WidgetBase], {
 
-    postCreate : function(){
-        logger.debug(this.id + ".postCreate");
+        iconstyle: "classic",
 
-        //houskeeping
-        this.imgNode = mendix.dom.div({
-            "class" : "HelpTextTrigger"
-        });
-        this.domNode.appendChild(this.imgNode);
+        //IMPLEMENTATION
+        domNode: null,
+        imgNode: null,
+        txtNode: null,
+        topic : "CustomWidget/HelpText",
+        state : false, //current state
 
-        this.txtNode = mendix.dom.label({"class" : "HelpTextTriggerLabel"}, this.txton);
-        this.domNode.appendChild(this.txtNode);
+        postCreate : function(){
+            logger.debug(this.id + ".postCreate");
 
-        this.connect(this.imgNode, "onclick", this.toggle);
-        this.connect(this.txtNode, "onclick", this.toggle);
+            //houskeeping
+            this.imgNode = dom.create("div", {
+                "class" : this.iconstyle === "classic" ? "HelpTextTrigger" : "HelpTextTriggerBootstrap glyphicon glyphicon-question-sign"
+            });
+            this.domNode.appendChild(this.imgNode);
 
-        this.actRendered();
-    },
+            this.txtNode = dom.create("label", {
+                "class" : "HelpTextTriggerLabel"
+            }, this.txton);
+            this.domNode.appendChild(this.txtNode);
 
-    toggle : function() {
-        this.state = !this.state;
-        dojo.attr(this.imgNode, "class", this.state? "HelpTextTriggerDown" : "HelpTextTrigger");
-        dojo.html.set(this.txtNode, this.state === true ? this.txtoff : this.txton);
-        dojo.publish(this.topic, [ this.state ]);
-    },
+            this.connect(this.imgNode, "onclick", this.toggle);
+            this.connect(this.txtNode, "onclick", this.toggle);
+        },
 
-    uninitialize : function() {
-        logger.debug(this.id + ".uninitialize");
-    }
+        toggle : function() {
+            this.state = !this.state;
+
+            var imgBaseName = this.iconstyle === "classic" ? "HelpTextTrigger" : "HelpTextTriggerBootstrap";
+            domClass.add(this.imgNode, this.state ? imgBaseName + "Down" : imgBaseName);
+            domClass.remove(this.imgNode, this.state ? imgBaseName : imgBaseName + "Down");
+
+            dojo.html.set(this.txtNode, this.state === true ? this.txtoff : this.txton);
+            dojo.publish(this.topic, [ this.state ]);
+        },
+
+        uninitialize : function() {
+            logger.debug(this.id + ".uninitialize");
+        }
+    });
+
 });
+
+require(["HelpText/widget/HelpTextTrigger"]);

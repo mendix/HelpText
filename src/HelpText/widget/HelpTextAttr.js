@@ -1,27 +1,41 @@
 /*global logger,mxui,HelpText*/
-dojo.provide("HelpText.widget.HelpTextAttr");
-dojo.require("HelpText.widget.HelpText");
+define([
+    "dojo/_base/declare",
 
-mendix.widget.declare("HelpText.widget.HelpTextAttr", {
-    superclass  : HelpText.widget.HelpText,
-    addons      : [],
+    "mxui/dom",
+    "dojo/dom-style",
+    "dojo/dom-construct",
+    "dojo/_base/array",
+    "dojo/_base/lang",
 
-    inputargs: {
-        name : "",
-        startvisible : false,
-        showonhover : true,
-        width : 300,
-        height : 300,
-        closeClick : false,
-        position : "popup"
-    },
+    "HelpText/widget/HelpText"
+], function (declare, dom, domStyle, domConstruct, dojoArray, lang, HelpTextBase) {
+    "use strict";
 
-    text : "",
+    return declare("HelpText.widget.HelpTextAttr", [ HelpTextBase ], {
+        superclass  : HelpText.widget.HelpText,
+        addons      : [],
 
-    _setValueAttr : function(value) {
-        this.text = mendix.dom.escapeHTML(value).replace(/\n/g, "<br/>");
-        if (this.helpNode) {
-            dojo.html.set(this.helpNode, this.text);
+        inputargs: {
+            name : "",
+            startvisible : false,
+            showonhover : true,
+            width : 300,
+            height : 300,
+            closeClick : false,
+            position : "popup"
+        },
+
+        text : "",
+
+        _setValueAttr : function(value) {
+            this.text = dom.escapeString(value).replace(/\n/g, "<br/>");
+            if (this.helpNode) {
+                dojo.html.set(this.helpNode, this.text);
+            }
         }
-    }
+    });
+
 });
+
+require(["HelpText/widget/HelpTextAttr"]);

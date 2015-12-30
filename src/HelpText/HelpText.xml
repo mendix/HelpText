@@ -48,6 +48,18 @@
             <category>Common</category>
             <description>Maximum height of the help box in pixels</description>
         </property>
+        <property key="iconstyle" type="enumeration" required="true" defaultValue="classic">
+            <caption>Icon Style</caption>
+            <category>Style</category>
+            <description>
+                Classic - Use the classic help text icon
+                Bootstrap - Use the Bootstrap glyphicon Question Sign
+            </description>
+            <enumerationValues>
+                <enumerationValue key="classic">Popup</enumerationValue>
+                <enumerationValue key="bootstrap">Bootstrap</enumerationValue>
+            </enumerationValues>
+        </property>
         <property key="position" type="enumeration" required="true" defaultValue="popup">
             <caption>Positioning</caption>
             <category>Common</category>

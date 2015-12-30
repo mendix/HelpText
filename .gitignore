@@ -2,10 +2,13 @@ test/javasource/
 test/deployment/
 test/.classpath
 test/.project
+test/*.bak
+
 *.launch
 *.tmp
 *.lock
 .idea/
+*.bak
 
 dist/
 
