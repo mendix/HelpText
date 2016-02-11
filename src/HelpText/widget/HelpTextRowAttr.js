@@ -26,7 +26,7 @@ define([
         text : "",
 
         _setValueAttr : function(value) {
-            this.text = dom.escapeString(value).replace(/\n/g, "<br/>");
+            this.text = value === null || typeof value === "undefined" ? "" : dom.escapeString(value).replace(/\n/g, "<br/>");
             dojo.html.set(this.domNode, this.text);
         }
     });
