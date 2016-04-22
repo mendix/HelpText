@@ -56,7 +56,10 @@
         <property key="renderHTML" type="boolean" defaultValue="false">
             <caption>Render as HTML</caption>
             <category>Behavior</category>
-            <description>Render as HTML. Be aware that this could lead to XSS attacks, where user input is rendered in the user's browser.</description>
+            <description>Render as HTML
+
+Caution: Be aware that enabling this could lead to XSS vulnerabilities, because the Help text will not be escaped. Make sure the Help text does not contain a text that can be inserted by a user. In most cases it's best to leave this option to 'false'. More info: https://en.wikipedia.org/wiki/Cross-site_scripting
+            </description>
         </property>
         <property key="position" type="enumeration" required="true" defaultValue="popup">
             <caption>Positioning</caption>
