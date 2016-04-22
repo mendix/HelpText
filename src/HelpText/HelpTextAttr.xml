@@ -19,7 +19,7 @@
         SUVORK5CYII=</icon>
 
     <properties>
-        <property key="name" type="attribute" required="true" isPath="optional" pathType="reference">
+        <property key="name" type="attribute" required="true" isPath="optional" pathType="reference" allowNonPersistableEntities="true">
             <caption>Help text</caption>
             <category>Behavior</category>
             <description>The help text which will be displayed when the user clicks or hovers the Help Text Viewer</description>
@@ -52,6 +52,11 @@
             <caption>Height</caption>
             <category>Common</category>
             <description>Maximum height of the help box in pixels</description>
+        </property>
+        <property key="renderHTML" type="boolean" defaultValue="false">
+            <caption>Render as HTML</caption>
+            <category>Behavior</category>
+            <description>Render as HTML. Be aware that this could lead to XSS attacks, where user input is rendered in the user's browser.</description>
         </property>
         <property key="position" type="enumeration" required="true" defaultValue="popup">
             <caption>Positioning</caption>
