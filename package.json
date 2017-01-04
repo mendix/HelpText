@@ -1,6 +1,6 @@
 {
   "name": "HelpText",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "The Help Text Viewer provides the possibility to enhance your forms by adding help buttons and help texts to explain the input fields of your form.  Optionally, the buttons can be hide by default, until a global Help trigger is clicked. ",
   "license": "",
   "author": "",

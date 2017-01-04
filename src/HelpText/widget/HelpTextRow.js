@@ -123,7 +123,7 @@ define([
                 params: {
                     actionname  : this.onclickmf,
                     applyto     : "selection",
-                    guids       : [this._contextObj.getGUID()]
+                    guids       : [this._contextObj.getGuid()]
                 },
                 callback: function () {},
                 error: function () {
