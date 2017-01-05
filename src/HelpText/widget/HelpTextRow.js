@@ -6,11 +6,14 @@ define([
 
     "mxui/dom",
     "dojo/dom-style",
+    "dojo/dom-class",
     "dojo/dom-construct",
     "dojo/_base/array",
-    "dojo/_base/lang"
+    "dojo/_base/lang",
+    "dojo/html",
+    "dojo/dom-geometry"
 
-], function (declare, _WidgetBase, dom, domStyle, domConstruct, dojoArray, lang) {
+], function (declare, _WidgetBase, dom, domStyle, dojoClass, domConstruct, dojoArray, lang, html, domGeom) {
     "use strict";
 
     return declare("HelpText.widget.HelpTextRow", [_WidgetBase], {
@@ -34,7 +37,7 @@ define([
         postCreate : function(){
             logger.debug(this.id + ".postCreate");
 
-            dojo.addClass(this.domNode, "HelpTextRow");
+            dojoClass.add(this.domNode, "HelpTextRow");
             this.createHelp();
             this.rowNode = this.findRowNode(this.domNode);
             domStyle.set(this.domNode, "maxHeight", this.height + "px");
@@ -70,28 +73,18 @@ define([
         },
 
         updateHeight : function(height) {
-            if (this.anim !== null) {
-                this.anim.stop();
+            domStyle.set(this.domNode, "height", "height");
+            if (height === 0) {
+                domStyle.set(this.rowNode, "display", "none");
             }
-            this.anim = dojo.animateProperty({
-                node : this.domNode,
-                duration : 500,
-                properties : { height : height },
-                onEnd : lang.hitch(this, function() {
-                    if (height === 0) {
-                        domStyle.set(this.rowNode, "display", "none");
-                    }
-                })
-            });
-            this.anim.play();
         },
 
         stateChange : function(newstate) {
             if (newstate) {
-                var boxorig = dojo.marginBox(this.domNode);
+                var boxorig = domGeom.getMarginBox(this.domNode);
                 domStyle.set(this.rowNode, { "display" : "" });
                 domStyle.set(this.domNode, { "height" : "auto" });
-                var box = dojo.marginBox(this.domNode);
+                var box = domGeom.getMarginBox(this.domNode);
 
                 if (boxorig.h === 0) { //restart animation
                     domStyle.set(this.domNode,  { "height" : "0px"});
@@ -107,7 +100,7 @@ define([
         },
 
         createHelp : function () {
-            dojo.html.set(this.domNode, this.text);
+            html.set(this.domNode, this.text);
             if (this.hideonclick === true) {
                 this.connect(this.domNode, "onclick", this.hideHelp);
             } else if (this.onclickmf !== "") {

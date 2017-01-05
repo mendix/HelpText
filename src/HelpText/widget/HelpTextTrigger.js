@@ -8,9 +8,10 @@ define([
     "dojo/dom-class",
     "dojo/dom-construct",
     "dojo/_base/array",
-    "dojo/_base/lang"
+    "dojo/_base/lang",
+    "dojo/html"
 
-], function (declare, _WidgetBase, dom, domStyle, domClass, domConstruct, dojoArray, lang) {
+], function (declare, _WidgetBase, dom, domStyle, domClass, domConstruct, dojoArray, lang, html) {
     "use strict";
 
     return declare("HelpText.widget.HelpTextTrigger", [_WidgetBase], {
@@ -49,7 +50,7 @@ define([
             domClass.add(this.imgNode, this.state ? imgBaseName + "Down" : imgBaseName);
             domClass.remove(this.imgNode, this.state ? imgBaseName : imgBaseName + "Down");
 
-            dojo.html.set(this.txtNode, this.state === true ? this.txtoff : this.txton);
+            html.set(this.txtNode, this.state === true ? this.txtoff : this.txton);
             dojo.publish(this.topic, [ this.state ]);
         },
 

@@ -7,9 +7,10 @@ define([
     "dojo/dom-construct",
     "dojo/_base/array",
     "dojo/_base/lang",
+    "dojo/html",
 
     "HelpText/widget/HelpText"
-], function (declare, dom, domStyle, domConstruct, dojoArray, lang, HelpTextBase) {
+], function (declare, dom, domStyle, domConstruct, dojoArray, lang, html, HelpTextBase) {
     "use strict";
 
     return declare("HelpText.widget.HelpTextAttr", [ HelpTextBase ], {
@@ -36,7 +37,7 @@ define([
             }
 
             if (this.helpNode) {
-                dojo.html.set(this.helpNode, this.text);
+                html.set(this.helpNode, this.text);
             }
         }
     });
