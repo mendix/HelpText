@@ -8,9 +8,12 @@ define([
     "dojo/dom-style",
     "dojo/dom-geometry",
     "dojo/_base/array",
-    "dojo/_base/lang"
+    "dojo/_base/lang",
+    "dojo/_base/event",
+    "dojo/_base/window",
+    "dojo/html"
 
-], function (declare, _WidgetBase, dom, domStyle, domGeometry, dojoArray, lang) {
+], function (declare, _WidgetBase, dom, domStyle, domGeometry, dojoArray, lang, dojoEvent, win, html) {
     "use strict";
 
     return declare("HelpText.widget.HelpText", [_WidgetBase], {
@@ -44,10 +47,10 @@ define([
             });
 
             this.domNode.appendChild(this.imgNode);
-            this.connect(this.imgNode, "onclick", dojo.hitch(this, this.toggleHelp, true));
+            this.connect(this.imgNode, "onclick", lang.hitch(this, this.toggleHelp, true));
             if (this.showonhover) {
-                this.connect(this.imgNode, "onmouseenter", dojo.hitch(this, this.showHelp, true, false));
-                this.connect(this.imgNode, "onmouseleave", dojo.hitch(this, this.showHelp, false, false));
+                this.connect(this.imgNode, "onmouseenter", lang.hitch(this, this.showHelp, true, false));
+                this.connect(this.imgNode, "onmouseleave", lang.hitch(this, this.showHelp, false, false));
             }
 
             //help node
@@ -74,15 +77,15 @@ define([
             logger.debug(this.id + ".createHelp");
             this.helpNode = dom.create("div", {"class" : "HelpTextBox"});
             var input = this.text.replace(/\n/g, "<br />");
-            dojo.html.set(this.helpNode, input);
+            html.set(this.helpNode, input);
             domStyle.set(this.helpNode, {
                 "width" : this.width + "px",
                 "maxHeight" : this.height + "px"
             });
-            this.connect(this.helpNode, "onclick", dojo.hitch(this, this.toggleHelp, true));
-            //document.body.appendChild(this.helpNode);
+            this.connect(this.helpNode, "onclick", lang.hitch(this, this.toggleHelp, true));
+
             if (this.position === "popup") {
-                dojo.body().appendChild(this.helpNode);
+                win.body().appendChild(this.helpNode);
             } else {
                 this.domNode.appendChild(this.helpNode);
                 domStyle.set(this.domNode, "position", "relative");
@@ -94,7 +97,7 @@ define([
             this.helpvisible = !this.helpvisible;
             this.showHelp(this.helpvisible, clicked);
             if (e) {
-                dojo.stopEvent(e);
+                dojoEvent.stop(e);
             }
         },
 
@@ -156,7 +159,7 @@ define([
                 }
             }
             catch(e) {
-                logger.warn("error on helptextviewer unload: " + e);
+                logger.warn("error on helptextviewer unload: ", e);
             }
         }
     });

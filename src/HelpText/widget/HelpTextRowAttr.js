@@ -7,9 +7,10 @@ define([
     "dojo/dom-construct",
     "dojo/_base/array",
     "dojo/_base/lang",
+    "dojo/html",
 
     "HelpText/widget/HelpTextRow"
-], function (declare, dom, domStyle, domConstruct, dojoArray, lang, HelpTextRowBase) {
+], function (declare, dom, domStyle, domConstruct, dojoArray, lang, html, HelpTextRowBase) {
     "use strict";
 
     return declare("HelpText.widget.HelpTextRowAttr", [ HelpTextRowBase ], {
@@ -27,7 +28,7 @@ define([
 
         _setValueAttr : function(value) {
             this.text = value === null || typeof value === "undefined" ? "" : dom.escapeString(value).replace(/\n/g, "<br/>");
-            dojo.html.set(this.domNode, this.text);
+            html.set(this.domNode, this.text);
         }
     });
 
